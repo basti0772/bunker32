@@ -23,7 +23,7 @@ Die Browser-Installation ersetzt die bestehende Firmware und löscht gespeichert
 
 ### GitHub Pages einmalig aktivieren
 
-Falls die Seite noch 404 anzeigt, im Repository **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: main → Folder: /docs → Save** wählen. Anschließend die GitHub-Pages-Bereitstellung abwarten. Diese Repository-Einstellung lässt sich nicht allein durch eingecheckte Dateien einschalten. Die Dateien sind für genau diese Quelle vorbereitet; der CI-Workflow ändert keine Repository-Einstellungen.
+Empfohlen ist im Repository **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: main → Folder: /docs → Save**. Anschließend die GitHub-Pages-Bereitstellung abwarten. Diese Repository-Einstellung lässt sich nicht allein durch eingecheckte Dateien einschalten; der CI-Workflow ändert keine Repository-Einstellungen. Falls bereits `main / (root)` ausgewählt ist, funktioniert die Hauptadresse ebenfalls: Die kleine `index.html` im Repository-Hauptverzeichnis leitet auf den Installer unter `docs/` weiter. Nach Umstellung auf `/docs` wird der Installer direkt an der Hauptadresse ausgeliefert.
 
 `docs/manifest.json` referenziert `firmware/bunker32.bin`. Relativ zum Manifest ist dies die URL `https://basti0772.github.io/bunker32/firmware/bunker32.bin` und die Datei **`docs/firmware/bunker32.bin`**. Sie ist identisch mit dem gewünschten Repository-Artefakt **`firmware/bunker32.bin`**. Ein Verweis auf `../firmware/` würde bei einer `/docs`-Pages-Quelle das Projekt verlassen und ist deshalb bewusst ausgeschlossen. Die BIN wird dauerhaft mit dem Repository veröffentlicht; keine temporären Actions-Download-URLs.
 

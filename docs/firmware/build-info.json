@@ -1,0 +1,52 @@
+{
+    "name":  "Bunker 32",
+    "version":  "1.0.0",
+    "chipFamily":  "ESP32",
+    "fqbn":  "esp32:esp32:esp32",
+    "coreVersion":  "3.3.12",
+    "library":  "TFT_eSPI 2.5.43",
+    "flashMode":  "dio",
+    "flashFrequency":  "80m",
+    "flashSize":  "4MB",
+    "partitionScheme":  "default",
+    "mergedOffset":  0,
+    "size":  384320,
+    "sha256":  "51be528918b8db354ebe18abe454eaaa5e17ccbdba18ceb92f903937233a4b8a",
+    "offsetSource":  "Arduino build/flash_args",
+    "inputs":  [
+                   {
+                       "file":  "Bunker32.ino.bootloader.bin",
+                       "offset":  4096,
+                       "size":  24992,
+                       "sha256":  "47bbbfca119fe87190f63a67af9d85adff6433bcf3812ec92a9b9c9416a53ad1"
+                   },
+                   {
+                       "file":  "Bunker32.ino.partitions.bin",
+                       "offset":  32768,
+                       "size":  3072,
+                       "sha256":  "148b959cbff1c38aa8e1d5c0ba9d612c54997b945e56a63f41223eef650653a1"
+                   },
+                   {
+                       "file":  "boot_app0.bin",
+                       "offset":  57344,
+                       "size":  8192,
+                       "sha256":  "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0"
+                   },
+                   {
+                       "file":  "Bunker32.ino.bin",
+                       "offset":  65536,
+                       "size":  318784,
+                       "sha256":  "736eb7e5f68d8a03168d67357d48a46202fbf657ab23d2d6e98b64e30bda3dfd"
+                   }
+               ],
+    "sourceHashes":  {
+                         "firmware/Bunker32/Bunker32.ino":  "017eb90fe09a9ef6d7fdf4f1ca4171bc0170b4e5ceb157c1414e01729a5ef104",
+                         "firmware/Bunker32/DisplayConfig.h":  "5079ca78ac7b0de35167130025979ff51e5bf642d109c770d4eb66cd63908ccb",
+                         "firmware/Bunker32/Game.cpp":  "310574c2063ca7f9d31b3e329114f106cf0160a27852d3d8dc9e8cb5072c9a28",
+                         "firmware/Bunker32/Game.h":  "e4b1a0328b38451f0d059168a80f4004ec70c795e712c3f9b05976cf5de7e12d",
+                         "firmware/Bunker32/Renderer.cpp":  "c40aad304848655824ed33e88fca038fb05491cbaa3b88fdbc4261942fdc4c6b",
+                         "firmware/Bunker32/Renderer.h":  "4eeeb9eef92619b6e03bd34c667e48a081dc86d37b2f877b9bbb44d80f7dcb98",
+                         "firmware/Bunker32/Version.h":  "e72da6669581ed0b01fb1478bb490f2b1bf293236f3b0ea5b5e907a91a72ad85",
+                         "tools/build-config.json":  "23e70cc5812393bdd23dd8cd98af409966f13d3f239d498e2c90f9bc33839bbd"
+                     }
+}

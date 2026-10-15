@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bunker 32 direkt im Browser auf deinen ESP32 installieren. Ein Retro-Ego-Shooter mit Touch- und PC-Steuerung.">
+  <meta name="theme-color" content="#101619">
+  <title>Bunker 32 · ESP32 Firmware installieren</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="installer.js"></script>
+</head>
+<body>
+  <header class="header wrap">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">B<span>32</span></span>BUNKER 32</a>
+    <a class="source-link" href="https://github.com/basti0772/bunker32">Quellcode auf GitHub <span aria-hidden="true">↗</span></a>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="intro">
+        <p class="eyebrow"><span class="status-dot"></span> EIN KLEINER CHIP. EIN GANZER BUNKER.</p>
+        <h1 id="title">Deine nächste Mission.<br><span>Direkt auf dem ESP32.</span></h1>
+        <p class="lead">Texturierte Gänge, neun Wachen und ein goldener Schlüssel. Installiere Bunker 32 per USB und spiele mit Touch oder PC-Tastatur.</p>
+        <div class="game-shot">
+          <div class="shot-label"><span>LIVE AUS DEM ESP32</span><span>160 × 120 · PIXEL FÜR PIXEL</span></div>
+          <img src="screenshots/gameplay.png" alt="Bunker 32 auf dem ESP32: 3D-Korridor, Wachen, Pistole und fünf Touch-Tasten" width="160" height="120">
+          <div class="shot-footer"><span>Finde den Schlüssel. Erreiche den Ausgang.</span><span aria-hidden="true">01 / 01</span></div>
+        </div>
+      </div>
+      <section class="install-card" aria-labelledby="install-title">
+        <div class="card-top"><span class="eyebrow">BROWSER-INSTALLER</span><span class="version" id="version">Version wird geladen</span></div>
+        <h2 id="install-title">ESP32 Firmware<br>installieren</h2>
+        <p class="card-description">Kein Build, keine Arduino-IDE. Ein USB-Datenkabel und dein Browser genügen.</p>
+        <dl class="specs">
+          <div><dt>Chipfamilie</dt><dd id="chip">ESP32</dd></div>
+          <div><dt>Display</dt><dd>ILI9341 + Touch</dd></div>
+          <div><dt>Flash</dt><dd id="flash">Wird geladen …</dd></div>
+          <div><dt>Download</dt><dd id="size">Wird geladen …</dd></div>
+        </dl>
+        <ol class="steps">
+          <li><span>1</span><div>ESP32 per USB anschließen<small>Datenkabel verwenden; PC-Steuerung schließen.</small></div></li>
+          <li><span>2</span><div>Auf „Install“ klicken<small>Chrome oder Edge am Desktop empfohlen.</small></div></li>
+          <li><span>3</span><div>Seriellen Port auswählen<small>Zum Beispiel „CP210x USB to UART Bridge“.</small></div></li>
+          <li><span>4</span><div>Flash-Vorgang abwarten<small>USB angeschlossen lassen, danach am Display starten.</small></div></li>
+        </ol>
+        <div class="install-action">
+          <esp-web-install-button id="installer" manifest="manifest.json">
+            <button id="install" class="primary" slot="activate" disabled>Install <span aria-hidden="true">→</span></button>
+            <p slot="unsupported" class="browser-notice">Dieser Browser bietet hier kein Web Serial an. Öffne die Seite in Chrome oder Edge am Desktop.</p>
+            <p slot="not-allowed" class="browser-notice">Öffne die Seite über HTTPS. Für einen lokalen Test ist localhost erlaubt.</p>
+          </esp-web-install-button>
+          <p id="status" class="status" role="status" aria-live="polite">Installer wird geladen …</p>
+        </div>
+        <p class="erase-note"><strong>Neuinstallation:</strong> Die vorhandene Firmware und gespeicherte Einstellungen werden gelöscht, auch die Touch-Kalibrierung. Beim ersten Antippen anschließend die vier Kreuze kalibrieren.</p>
+        <a class="download" id="download" href="firmware/bunker32.bin" download="bunker32.bin">Firmware als BIN herunterladen <span aria-hidden="true">↓</span></a>
+        <noscript><p class="browser-notice">Für die Browser-Installation muss JavaScript aktiviert sein. Die BIN und die manuelle Anleitung bleiben verfügbar.</p></noscript>
+      </section>
+    </section>
+    <section class="details-grid" aria-label="Hardware und Hilfe">
+      <article class="detail-card"><p class="eyebrow">DER PASSENDE AUFBAU</p><h2>Klassischer ESP32.<br>Kein S3 oder C3.</h2><p>Für ESP32-WROOM / ESP32-D0WDQ6 mit mindestens 4 MB Flash und ILI9341 im Querformat. Der Installer prüft die Chipfamilie; die Display-Verkabelung muss zu diesem Projekt passen.</p><dl class="pins"><div><dt>MISO / MOSI / SCLK</dt><dd>19 / 23 / 18</dd></div><div><dt>TFT CS / DC / RST</dt><dd>15 / 2 / 4</dd></div><div><dt>Touch CS</dt><dd>32</dd></div></dl></article>
+      <article class="detail-card"><p class="eyebrow">WENN ES HAKT</p><h2>Ein freier USB-Port.<br>Eine stabile Verbindung.</h2><p>Serielle Monitore und das PC-Steuerfenster schließen. Falls kein Port erscheint, ein anderes Datenkabel oder den passenden USB-UART-Treiber verwenden. Beim Verbindungsaufbau gegebenenfalls BOOT gedrückt halten.</p><a href="https://github.com/basti0772/bunker32#browser-installation">Build, manuelles Flashen &amp; Anleitung <span aria-hidden="true">↗</span></a></article>
+    </section>
+    <details class="build-details"><summary>Build-Details &amp; Prüfsumme</summary><div class="build-details-body"><p id="build-summary">Die Metadaten werden aus dem veröffentlichten Firmware-Build geladen.</p><p><strong>SHA-256</strong><br><code id="sha">Wird geladen …</code></p><p><a href="firmware/build-info.json">Build-Metadaten</a> · <a href="firmware/flash_args">Originale Flash-Adressen</a> · <a href="firmware/partitions.csv">Partitionierung</a></p></div></details>
+  </main>
+  <footer class="wrap footer"><span>BUNKER 32 <span class="muted">/ RETRO-SHOOTER FÜR ESP32</span></span><span>Installiert mit <a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a></span></footer>
+</body>
+</html>

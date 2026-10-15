@@ -1,0 +1,55 @@
+name: Build and validate browser firmware
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  firmware:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+        with:
+          version: 1.x
+      - name: Install pinned ESP32 core and display library
+        shell: pwsh
+        run: |
+          $config = Get-Content -Raw tools/build-config.json | ConvertFrom-Json
+          $index = 'https://espressif.github.io/arduino-esp32/package_esp32_index.json'
+          arduino-cli core update-index --additional-urls $index
+          if ($LASTEXITCODE -ne 0) { throw 'Core index failed' }
+          arduino-cli core install "$($config.platform)@$($config.platformVersion)" --additional-urls $index
+          if ($LASTEXITCODE -ne 0) { throw 'Core install failed' }
+          arduino-cli lib update-index
+          if ($LASTEXITCODE -ne 0) { throw 'Library index failed' }
+          arduino-cli lib install "$($config.library)@$($config.libraryVersion)"
+          if ($LASTEXITCODE -ne 0) { throw 'Library install failed' }
+      - name: Check published firmware matches committed source
+        shell: pwsh
+        run: ./tools/Test-Web-Firmware.ps1
+      - name: Test validator with invalid installation packages
+        shell: pwsh
+        run: |
+          python tests/test_web_firmware.py
+          if ($LASTEXITCODE -ne 0) { throw 'Validation regression tests failed' }
+      - name: Build browser firmware from scratch
+        shell: powershell
+        run: ./tools/Build-Web-Firmware.ps1
+      - name: Verify generated firmware against build offsets
+        shell: pwsh
+        run: ./tools/Test-Web-Firmware.ps1 -WithBuild
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bunker32-web-firmware
+          path: |
+            firmware/bunker32.bin
+            docs/
+          if-no-files-found: error
+          include-hidden-files: true

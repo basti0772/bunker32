@@ -1,0 +1,7 @@
+{
+  "fqbn": "esp32:esp32:esp32",
+  "platform": "esp32:esp32",
+  "platformVersion": "3.3.12",
+  "library": "TFT_eSPI",
+  "libraryVersion": "2.5.43"
+}

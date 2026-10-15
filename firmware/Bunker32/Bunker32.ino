@@ -3,6 +3,7 @@
 #include <Preferences.h>
 #include "Game.h"
 #include "Renderer.h"
+#include "Version.h"
 
 using namespace Bunker;
 TFT_eSPI tft;
@@ -114,7 +115,7 @@ void command(char* line) {
   else if(strcmp(line,"PAUSE")==0){game.togglePause();remoteInput=0;}
   else if(strcmp(line,"AUTO")==0){game.autoFire=!game.autoFire;}
   else if(strcmp(line,"MAP")==0){game.mapOpen=!game.mapOpen;}
-  else if(strcmp(line,"HELP")==0)serialLine("BUNKER32 v1 | K 0..127, START, NEW, PAUSE, AUTO, MAP, CAL, CANCEL, STATE, SELFTEST, SNAP, STREAM 0/1");
+  else if(strcmp(line,"HELP")==0)serialLine("BUNKER32 v" BUNKER32_VERSION " | K 0..127, START, NEW, PAUSE, AUTO, MAP, CAL, CANCEL, STATE, SELFTEST, SNAP, STREAM 0/1");
 }
 void serialPoll() {
   static char line[96];static size_t length=0;static bool overflow=false;
@@ -140,7 +141,7 @@ void setup() {
   if(prefs.begin("bunker32",true)){if(prefs.getBytesLength("rot1-v1")==sizeof(mapping)){prefs.getBytes("rot1-v1",mapping,sizeof(mapping));calibrated=true;}prefs.end();}
   if(!calibrated&&prefs.begin("chess-touch",true)){if(prefs.getBytesLength("rot3-v1")==sizeof(mapping)){prefs.getBytes("rot3-v1",mapping,sizeof(mapping));calibrated=true;legacyMapping=true;}prefs.end();}
   for(float v:mapping)if(!isfinite(v))calibrated=false;
-  serialLine("BUNKER32 READY v1 baud=921600 display=ILI9341 rotation=1");report();
+  serialLine("BUNKER32 READY v" BUNKER32_VERSION " baud=921600 display=ILI9341 rotation=1");report();
 }
 void loop() {
   static uint32_t previous=millis(),fpsSince=millis();static int count=0;
